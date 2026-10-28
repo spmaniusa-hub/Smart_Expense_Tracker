@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="header-icon">💰</div>
+            <div>
+                <h1>Smart Expense Tracker</h1>
+                <p class="subtitle">Easily track, manage, and understand your daily expenses</p>
+            </div>
+        </header>
+
+        <!-- Summary Metric Cards -->
+        <section class="summary-section" aria-label="Expense Summary">
+            <div class="summary-card total-spent">
+                <span class="summary-label">Total Amount Spent</span>
+                <span class="summary-value" id="total-amount">$0.00</span>
+            </div>
+            <div class="summary-card total-count">
+                <span class="summary-label">Total Expenses</span>
+                <span class="summary-value" id="total-count">0</span>
+            </div>
+            <div class="summary-card top-category">
+                <span class="summary-label">Top Category</span>
+                <span class="summary-value" id="top-category">—</span>
+            </div>
+        </section>
+
+        <!-- Notification / Alert Message Banner -->
+        <div id="alert-banner" class="alert-banner hidden" role="alert" aria-live="polite">
+            <span id="alert-icon" class="alert-icon">⚠️</span>
+            <span id="alert-message" class="alert-message"></span>
+            <button id="alert-close" class="alert-close" aria-label="Close notification">&times;</button>
+        </div>
+
+        <!-- Main Layout: Form (Left) & Expense List (Right) -->
+        <main class="main-content">
+            <!-- Add Expense Form Card -->
+            <section class="card form-card">
+                <h2 class="card-title">Add New Expense</h2>
+                <form id="expense-form" novalidate>
+                    <!-- Expense Name Field -->
+                    <div class="form-group">
+                        <label for="expense-name">Expense Name <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="expense-name" 
+                            name="expense-name"
+                            placeholder="e.g., Grocery shopping, Uber ride" 
+                            autocomplete="off"
+                        >
+                        <small class="field-hint">Enter a descriptive title for this expense.</small>
+                    </div>
+
+                    <!-- Amount Field -->
+                    <div class="form-group">
+                        <label for="expense-amount">Amount ($) <span class="required">*</span></label>
+                        <div class="currency-input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input 
+                                type="number" 
+                                id="expense-amount" 
+                                name="expense-amount"
+                                step="0.01" 
+                                min="0.01" 
+                                placeholder="0.00"
+                            >
+                        </div>
+                        <small class="field-hint">Must be greater than 0. Decimals allowed.</small>
+                    </div>
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="expense-category">Category <span class="required">*</span></label>
+                        <select id="expense-category" name="expense-category">
+                            <option value="Food">🍔 Food & Dining</option>
+                            <option value="Travel">🚗 Travel & Transportation</option>
+                            <option value="Shopping">🛍️ Shopping</option>
+                            <option value="Bills">💡 Bills & Utilities</option>
+                            <option value="Entertainment">🎬 Entertainment</option>
+                            <option value="Other">📦 Other</option>
+                        </select>
+                        <small class="field-hint">Select the best matching category.</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="add-expense-btn" class="btn btn-primary">
+                        <span>+ Add Expense</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Expense List & History Card -->
+            <section class="card list-card">
+                <div class="list-header">
+                    <h2 class="card-title">Expense History</h2>
+                    <span class="badge" id="expense-counter">0 items</span>
+                </div>
+
+                <!-- Empty State Placeholder -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>No expenses yet</h3>
+                    <p>Add your first expense using the form on the left to start tracking your spending.</p>
+                </div>
+
+                <!-- Expense Table Container -->
+                <div id="table-container" class="table-container hidden">
+                    <table class="expense-table" aria-label="Recorded Expenses">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th class="text-right">Amount</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list">
+                            <!-- Dynamic expense rows injected by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Smart Expense Tracker &bull; Prompting for Development Assignment &bull; Built with HTML, CSS, & Vanilla JS</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
